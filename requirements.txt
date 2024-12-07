@@ -5,7 +5,15 @@ Pyromod==1.5
 # --- For-Database ------------ #
 pymongo
 dnspython
+motor
+umongo
+marshmallow
 # --- For-Web-Response ------- #
 aiohttp
 humanize
 requests
+pytz
+bs4
+shortzy
+aiofiles
+asyncio
