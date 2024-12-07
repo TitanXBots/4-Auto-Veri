@@ -40,6 +40,14 @@ FORCE_SUB_CHANNEL_2 = int(os.environ.get("FORCE_SUB_CHANNEL_2", "-1001972961497"
 FORCE_SUB_CHANNEL_3 = int(os.environ.get("FORCE_SUB_CHANNEL_3", "-1001987271131"))
 FORCE_SUB_CHANNEL_4 = int(os.environ.get("FORCE_SUB_CHANNEL_4", "-1002038066716"))
 
+# Shortner (Token System)
+
+SHORTLINK_URL = os.environ.get("SHORTLINK_URL", "omegalinks.in")
+SHORTLINK_API = os.environ.get("SHORTLINK_API", "d1fe60a4c9975e2d2c71b5647e847112481aaa6c")
+VERIFY_EXPIRE = int(os.environ.get('VERIFY_EXPIRE', 600)) # Add time in Seconds
+IS_VERIFY = os.environ.get("IS_VERIFY", "True")
+TUT_VID = os.environ.get("TUT_VID", "https://t.me/TitanXBackup/33")
+                              
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
