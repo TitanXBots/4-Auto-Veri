@@ -7,8 +7,24 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 from bot import Bot
 from config import *
-from helper_func import subscribed, encode, decode, get_messages
+from helper_func import subscribed, encode, decode, get_messages, get_shortlink, get_verify_status, update_verify_status, get_exp_time
 from database.database import add_user, del_user, full_userbase, present_user
+from shortzy import Shortzy
+import base64
+import string
+import time
+import random
+import re
+import logging
+
+
+"""add time in seconds for waiting before delete 
+1 min = 60, 2 min = 60 * 2 = 120, 5 min = 60 * 5 = 300"""
+# SECONDS = int(os.getenv("SECONDS", "1200"))
+
+
+
+
 
 titanxofficials = FILE_AUTO_DELETE
 titandeveloper = titanxofficials
@@ -98,8 +114,11 @@ async def start_command(client: Client, message: Message):
         # Schedule the file deletion
         asyncio.create_task(delete_files(titanx_msgs, client, k))
 
-        return
-    else:
+
+
+    #########$
+    
+    elif verify_status['is_verified']:
         reply_markup = InlineKeyboardMarkup(
             [
                 [
@@ -133,7 +152,24 @@ async def start_command(client: Client, message: Message):
             ),
             reply_markup=reply_markup,
         )
-        return
+    else:
+        verify_status = await get_verify_status(id)
+        if IS_VERIFY and not verify_status['is_verified']:
+            short_url = f"publicearn.in"
+            # TUT_VID = f"https://t.me/How_to_Download_7x/35"
+            token = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+            await update_verify_status(id, verify_token=token, link="")
+            link = await get_shortlink(SHORTLINK_URL, SHORTLINK_API,f'https://telegram.dog/{client.username}?start=verify_{token}')
+            btn = [
+                [InlineKeyboardButton("• ᴏᴘᴇɴ ʟɪɴᴋ", url=link)],
+                [InlineKeyboardButton('ᴛᴜᴛᴏʀɪᴀʟ •', url=TUT_VID)]
+            ]
+            await message.reply(f"Your Ads token is expired, refresh your token and try again.\n\nToken Timeout: {get_exp_time(VERIFY_EXPIRE)}\n\nWhat is the token?\n\nThis is an ads token. If you pass 1 ad, you can use the bot for 24 Hour after passing the ad.", reply_markup=InlineKeyboardMarkup(btn), protect_content=False, quote=True)
+                
+
+
+
+                
 
 # =====================================================================================##
 
