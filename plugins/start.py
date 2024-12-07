@@ -155,7 +155,7 @@ async def start_command(client: Client, message: Message):
     else:
         verify_status = await get_verify_status(id)
         if IS_VERIFY and not verify_status['is_verified']:
-            short_url = f"publicearn.in"
+            short_url = f"omegalinks.in"
             # TUT_VID = f"https://t.me/How_to_Download_7x/35"
             token = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
             await update_verify_status(id, verify_token=token, link="")
