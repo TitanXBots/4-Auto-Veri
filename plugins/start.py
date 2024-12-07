@@ -123,8 +123,8 @@ async def start_command(client: Client, message: Message):
                 pass
         
     #########$
-    
-    elif verify_status['is_verified']:
+        return
+   elese:
         reply_markup = InlineKeyboardMarkup(
             [
                 [
