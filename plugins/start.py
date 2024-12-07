@@ -113,9 +113,15 @@ async def start_command(client: Client, message: Message):
 
         # Schedule the file deletion
         asyncio.create_task(delete_files(titanx_msgs, client, k))
+               
 
-
-
+        for titanx_msg in titanx_msgs:
+            try:
+                await titanx_msg.delete()
+                await SD.delete()
+            except:
+                pass
+        
     #########$
     
     elif verify_status['is_verified']:
