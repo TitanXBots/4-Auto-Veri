@@ -25,15 +25,34 @@ file_auto_delete = humanize.naturaldelta(titandeveloper)
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
     user_id = message.from_user.id
-    if not await present_user(user_id):
+    owner_id = ADMINS
+
+    if id == owner_id:
+        
+
+        await message.reply("You are the owner! additional actions can be added here.")
+
+elese:
+    if not await present_user(id):
         try:
             await add_user(user_id)
-        except Exception as e:
-            print(f"Error adding user: {e}")
+        except:
             pass
 
-    text = message.text
-    if len(text) > 7:
+    verify_status = await get_verify_status(user_id)
+    if verify_status['is_verified'] and VERIFY_EXPIRE < (time.time() - verify_status['verified_time']):
+        await update_verify_status(user_id, is_verified=False)
+
+    if "verify_" in message.text:
+        _, token = message.text.split("_", 1)
+        if verify_status['verify_token'] != token:
+            return await message.reply("Your token is invalid or expired. Try again by Clicking /start")
+        await update_verify_status(id, is_verified=True, verified_time=time())
+        if verify_status["link"] == "":
+            reply_markup = None
+        await message.reply(f"Your token is successfuly verified and valid for: 24 hour", reply_markup=reply_markup, protect_content=False, quote=True)
+        
+    elif len(message.text) > 7 and verify_status['is_verified']:
         try:
             base64_string = text.split(" ", 1)[1]
         except IndexError:
@@ -114,9 +133,9 @@ async def start_command(client: Client, message: Message):
             except:
                 pass
         
-    #########$
-        return
-   else:
+    ####
+    ########$
+    elif verify_status['is_verified']:
         reply_markup = InlineKeyboardMarkup(
             [
                 [
