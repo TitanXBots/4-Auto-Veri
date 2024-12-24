@@ -33,15 +33,15 @@ async def start_command(client: Client, message: Message):
         await message.reply("You are the owner! additional actions can be added here.")
 
 elese:
-    if not await present_user(id):
+    if not await present_user(user_id):
         try:
             await add_user(user_id)
         except:
             pass
 
-    verify_status = await get_verify_status(user_id)
+    verify_status = await get_verify_status(id)
     if verify_status['is_verified'] and VERIFY_EXPIRE < (time.time() - verify_status['verified_time']):
-        await update_verify_status(user_id, is_verified=False)
+        await update_verify_status(id, is_verified=False)
 
     if "verify_" in message.text:
         _, token = message.text.split("_", 1)
