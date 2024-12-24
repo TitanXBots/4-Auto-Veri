@@ -7,7 +7,7 @@ import pymongo, os
 from config import DB_URI, DB_NAME
 
 
-dbclient = pymongo.MongoClient(DB_URI)
+dbclient = motor.motor_asyncio.AsyncIOMotorClient(DB_URI)
 database = dbclient[DB_NAME]
 
 
