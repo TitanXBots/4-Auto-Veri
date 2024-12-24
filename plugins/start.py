@@ -18,14 +18,6 @@ import re
 import logging
 
 
-"""add time in seconds for waiting before delete 
-1 min = 60, 2 min = 60 * 2 = 120, 5 min = 60 * 5 = 300"""
-# SECONDS = int(os.getenv("SECONDS", "1200"))
-
-
-
-
-
 titanxofficials = FILE_AUTO_DELETE
 titandeveloper = titanxofficials
 file_auto_delete = humanize.naturaldelta(titandeveloper)
